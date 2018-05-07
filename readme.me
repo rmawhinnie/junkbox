@@ -1,0 +1,35 @@
+---
+title: readme.md
+layout: post
+author: rmawhinnie
+source-id: 1IRGnADeAhLFXiZSCVoj8sEl_MgSMM7KqbY8ZKtStaAk
+published: true
+---
+## **Python Library for talking to Atmos MGMT API**
+
+This API allows Python developers to easily connect to EMC Atmos mgmt services. It handles all of the low-level tasks such as generating and signing requests, connecting to the server, and parsing server responses.
+
+## **Requirements**
+
+* Python 2.7
+
+## **Usage**
+
+In order to use the library, you need to construct an instance of the specified class. This class contains the parameters used to connect to the server.
+
+eg.
+
+stid = subtenant.Subtenant(tenantname='Tenant', tenantadmin='Atmin1', tenantadminpassword='Password', endpoint='[http://youratmoshere](http://youratmoshere)')
+
+After you have created your specified class object, you can use the methods on the object to manipulate data in the cloud. For instance, to create a new, subtenant in the atmos, you can simply call:
+
+newstid = stid.create_subtenant(subtenantname='New_Subtenant’)
+
+The create_object method will return an object_id that can be used in subsequent calls to read the subtenant, add uid, etc.
+
+ 
+
+TODO:
+
+1. Add tests to validate api respones
+
