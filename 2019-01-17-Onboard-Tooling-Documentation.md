@@ -48,7 +48,7 @@ Actions are pieces of code that can perform arbitrary automation or remediation 
 
 * snapshot a VM
 
-### Worlkflows
+### Workflows
 
 Typical data center operations and processes involve taking multiple actions across various systems. To capture and automate these operations, StackStorm uses workflows. A workflow strings atomic actions into a higher level automation, and orchestrates their executions by calling the right action, at the right time, with the right input. It keeps state, passes data between actions, and provides reliability and transparency to the execution.
 
@@ -60,9 +60,9 @@ StackStorm uses rules and workflows to capture operational patterns as automatio
 
 Sensors are a way to integrate external systems and events with StackStorm. Sensors are pieces of Python code that either periodically poll some external system, or passively wait for inbound events. They then inject triggers into StackStorm, which can be matched by rules, for potential action execution.
 
-## xStream Pack
+## onboarding Pack
 
-[https://github.emcrubicon.com/ent-sre/stackstorm-xstream](https://github.emcrubicon.com/ent-sre/stackstorm-xstream)
+https://github.emcrubicon.com/Tenants/stackstorm-onboarding
 
 Internally developed Stackstorm pack for interacting with the Xstream API
 
@@ -70,15 +70,15 @@ Internally developed Stackstorm pack for interacting with the Xstream API
 
 * Provides tools to query all xstream Resources
 
-* Provides Workflow for creating VM, and passing in CloudInit data
+* Provides Workflow for creating VM, and passing in cloudInit data
 
 ### Actions
 
-#### Xstream.get 
+#### onboarding.get 
 
-Get Details on single resourceGUI: {Stackstomrm URL}/#/actions/xstream.get
+Get Details on single resourceGUI: {Stackstorm URL}/#/actions/onboarding.get
 
-CLI: st2 run xstream.get 
+CLI: st2 run https://github.emcrubicon.com/Tenants/stackstorm-onboarding.get 
 
 Required Parameters:
 
@@ -102,7 +102,7 @@ Required Parameters:
 
         * Hypervisor
 
-        *  Storage
+        * Storage
 
         * Site
 
@@ -128,11 +128,11 @@ Required Parameters:
 
 * Name: Resource Name to query
 
-#### xstream.list
+#### onboarding.list
 
-Get list of all configuration items in a  resourceGUI: {Stackstomrm URL}/#/actions/xstream.list
+Get list of all configuration items in a  resourceGUI: {Stackstomrm URL}/#/actions/onboarding.list
 
-CLI: st2 run xstream.list 
+CLI: st2 run onboarding.list 
 
 Required Parameters:
 
@@ -144,47 +144,51 @@ Required Parameters:
 
     * Valid Resources
 
+        * VirtualMachine
+
+        * ComputeCluster
+
+        * HypervisorHost
+
+        * Hypervisor
+
+        * HardwareTemplate
+
+        * Network
+
         * Profile
 
         * ResourcePool
 
-        * VirtualSwitch
-
-        * HardwareTemplate
-
-        * VirtualMachine
-
-        * Hypervisor
-
-        *  Storage
-
         * Site
 
-        * Network
-
-        * ServiceOffering
-
-        * User
+        * Storage,
 
         * TaskInfo
 
-        * ComputeCluster
-
         * Tenant
 
-        * HypervisorHost
+        * User
 
-* Tenant_id: Tenant ID that you wish to pull
+        * VirtualSwitch
 
-* Xstream_url: Xstream URL
+        * ServiceAllocation
 
-#### xstream.vm.setvm
+        * ServiceOffering
+
+        * Profile
+
+* tenant_id: Tenant ID that you wish to pull
+
+* xstream_url: xstream URL
+
+#### onboarding.vm.setvm
 
 Create VM on Xstream
 
-GUI: {Stackstomrm URL}/#/actions/xstream.setvm
+GUI: {Stackstomrm URL}/#/actions/onboarding.setvm
 
-CLI: st2 run xstream.list 
+CLI: st2 run onboarding.setvm 
 
 Required Parameters:
 
@@ -198,145 +202,109 @@ Required Parameters:
 
 * Tenant_id: Tenant ID that you wish to pull
 
-* Xstream_url: Xstream URL
+* xstream_url: xstream URL
 
-### Worlfows
+### Workflows
 
-#### Xstream.vm.buildmulti
+#### onboarding.vm.buildmulti
 
-Create VM on Xstream
+Create multiple VMs on Xstream
 
-GUI: {Stackstomrm URL}/#/actions/xstream.vm.buildmulti
+GUI: {Stackstorm URL}/#/actions/onboarding.vm.buildmulti
 
-CLI: st2 run xstream.vm.buildmulti 
+CLI: st2 run onboarding.vm.buildmulti 
 
 Required Parameters:
 
-* Vms - Json list of vms to build
+* github_repo - name of the github repo where specfile is store
 
-Tenant: Name of Tenant to be used in creating VM
+* spec_file - name of the yaml file to build from
 
-ServiceOffering: Name of Compute Service Offering
-
-ComputeProfile: The compute Profile Name to be utilized
-
-Site: Name of the Site to create the VM in
-
-Template: Name of the VM Temaplte to be referenced in creating VM
-
-VmName: The display name for this VM
-
-Description: Description of VM
-
-NumCpu: The number of virtual CPUs to add to this VM
-
-RamAllocatedMB: The amount of RAM to allocate to this VM in megabytes
-
-Disks: List of Disks to be added to VM
-
-   - Storage: Name of storage pool to pull from
-
-     StorageProfile: Storage Profile Name
-
-     CapacityKB: Disk capacity in Kilobytes
-
-     DeviceKey: Disk Key from VM
-
-Networks: List of Networks to attach to VM
-
-  -  NetworkName: Network Name where NIC is going to connect to (required)
-
-     AdapterType: Type of Network Card to be utilized
-
-        - 0: Undefined
-
-        - 1: VirtualE1000
-
-        - 2: VirtualPcNet32
-
-        - 3: VirtualVmxnet2
-
-        - 4: VirtualVmxnet3
-
-        - 5: VirtualVmxnet
-
-        - 6: VirtualE1000
-
-     DeviceKey: NIC device key in the template, or 0 if the new NIC should be added
-
-     MacAddress: NIC MAC address
-
-Customizations: Cloud Init Specs to be passed to VM for build"
-
-#### Xstream.vm.build
+#### onboarding.vm.build
 
 Build a single VM on xstream
 
-GUI: {Stackstomrm URL}/#/actions/xstream.vm.build
+GUI: {Stackstorm URL}/#/actions/onboarding.vm.build
 
-CLI: st2 run xstream.vm.build 
+CLI: st2 run onboarding.vm.build 
 
-Required Parameters:
+Parameters:
 
-* Tenant: Name of Tenant to be used in creating VM
+* Tenant: Tenant Name that you will be creating VMs inside of
 
-* ServiceOffering: Name of Compute Service Offering
+*  ServiceOffering: The name of the compute/storage/network service offering from which this VM will be created.
 
-* ComputeProfile: The compute Profile Name to be utilized
+* ComputeProfile:
 
-* Site: Name of the Site to create the VM in
+* ServiceAllocation:
 
-* Template: Name of the VM Temaplte to be referenced in creating VM
+* Site: The geographic location for the VM.
 
-* VmName: The display name for this VM
+* Template: The name of the hardware template youare using to create this VM.
 
-* Description: Description of VM
+* VmName: The user-defined name for the VM.
 
-* NumCpu: The number of virtual CPUs to add to this VM
+* Description: An optional field to describe the purpose of the VM within your environment.
 
-* RamAllocatedMB: The amount of RAM to allocate to this VM in megabytes
+* Group: 
 
-* Group: The business group name for this VM   
+*   NumCpu: The nuber of Cpus to allocate to the VM
 
-* Disks: List of Disks to be added to VM
+* CpuHotAddEnabled
 
-      - TenantID: TenantID to be use by Disk
+* CpuHotRemoveEnabled
 
-        TargetSite: SiteID that that Disk will be built in
+* RamAllocatedMB: The amount of Virtual Memory to allocate to VM
 
-        Storage: Name of storage pool to pull from
+* MemoryHotAddEnabled
 
-        Profile: Storage Profile Name
+* GuestOsType: The name of the OS that will be loaded into this VM.
 
-        CapacityKB: Disk capacity in Kilobytes
+* Disks:
 
-        DeviceKey: Disk Key from VM"
+    - Storage: datastore-23
 
-*   Networks: List of Networks to attach to VM
+      Profile: Storage profile name
 
-      - TenantID: TenantID to be use by Disk
+      CapacityKB: Amount of KB per disk
 
-        NetworkName: Network Name where NIC is going to connect to (required)
+      DeviceKey: Disk ID to assign this storage inside of VM (default to 2000 for first exsisting disk, 0 for new disk)
 
-        AdapterType: Type of Network Card to be utilized
+* Networks:
 
-          - 0: Undefined
+    - NetworkName: vxw-dvs-33-virtualwire-53-sid-100032-monitoring-nsx-tss-vm.sss.mnss01
 
-          - 1: VirtualE1000
+      AdapterType: Type(s) of NIC card(s). Valid NIC types : Undefined = 0, VirtualE1000 = 1, VirtualPcNet32 = 2, VirtualVmxnet2 = 3, VirtualVmxnet3 = 4, VirtualVmxnet = 5, VirtualE1000e = 6
 
-          - 2: VirtualPcNet32
+      DeviceKey:  NIC ID to assign this network inside of VM (default to 2000 for first exsisting disk, 0 for new nic)
 
-          - 3: VirtualVmxnet2
+      MacAddress: If required, Macaddress to impress on VM
 
-          - 4: VirtualVmxnet3
+*   Customizations: See [cloudinit](https://cloudinit.readthedocs.io/en/latest/) spec for valid options
 
-          - 5: VirtualVmxnet
+# **Install**
 
-          - 6: VirtualE1000e
+If git
 
-        DeviceKey: NIC device key in the template, or 0 if the new NIC should be added
+st2 pack install <git> 
 
-        MacAddress: NIC MAC address"
+If debian:
 
-* Customizations: Cloud Init Specs to be passed to VM for build
+sudo apt-get install stackstorm-xstream
+
+# **Configuration**
+
+st2 pack config xstream
+
+# **Development**
+
+Use the [stackstorm-devel](https://github.emcrubicon.com/virtustream-stackstorm/stackstormdev) repo to stand up a stackstorm instance and add your local copy of the repo.
+
+1. Edit mount file
+
+2. vagrant reload
+
+3. vagrant ssh
+
+4. Follow configuration steps above.
 
